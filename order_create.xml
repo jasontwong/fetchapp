@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order>
+    <id>1</id>
+    <vendor_id>1554898798</vendor_id>
+    <first_name>Bugs</first_name>
+    <last_name>Bunny</last_name>
+    <email>bugs@bunny.com</email>
+    <currency>USD</currency>
+    <custom_1>Optional</custom_1>
+    <custom_2>Custom</custom_2>
+    <custom_3>Values</custom_3>
+    <expiration_date type="datetime">2010-09-07T15:08:02+00:00</expiration_date>
+    <download_limit type="integer">5</download_limit>
+    <send_email>true</send_email>
+    <order_items type="array">
+        <order_item>
+            <sku>1</sku>
+            <downloads_remaining type="integer">4</downloads_remaining>
+            <price type="float">4.99</price>
+        </order_item>
+    </order_items>
+</order>

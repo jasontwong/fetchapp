@@ -55,7 +55,7 @@ class FetchApp
      *
      * @param string $name
      * @param array $args
-     * @return SimpleXMLObject
+     * @return SimpleXMLObject|FALSE
      */
     public function __call( $name, $args )
     {
@@ -70,7 +70,7 @@ class FetchApp
             // {{{ build request endpoint
             foreach ( $args as $k => &$arg )
             {
-                if ( is_array( $arg ) || ( is_object( $arg ) && get_class( $arg ) === 'SimpleXMLObject' ) )
+                if ( is_array( $arg ) || ( is_object( $arg ) && get_class( $arg ) === 'SimpleXMLElement' ) )
                 {
                     $extras = $arg;
                     break;
@@ -118,7 +118,6 @@ class FetchApp
             }
 
             $data = call_user_func_array( array( $this, 'send_request' ), $req_args );
-            return $data;
             return simplexml_load_string( $data );
         }
         throw new FetchAppException( 'That method does not exist' );
@@ -131,22 +130,20 @@ class FetchApp
      *
      * @param array $request API endpoint and method
      * @param array|NULL $post_data data to send to the endpoint
-     * @return array
+     * @return string XML response from endpoint
      */
     protected function send_request( $request, $data = NULL )
     {
-        var_dump( $request, $data );
-        return array( 'success' => false );
         $request_uri = '/api/v2' . $request['page'];
         $credentials = self::$api['key'] . ':' . self::$api['token'];
 
         $headers = array(
             'Content-type: application/xml',
-            'Authorization: Basic ' . base64_encode( $credentials )
+            'Authorization: Basic ' . base64_encode( $credentials ),
         );
 
         $ch = curl_init();
-        curl_setopt( $ch, CURLOPT_URL, self::$api['uri'] . $request_uri['page'] );
+        curl_setopt( $ch, CURLOPT_URL, self::$api['uri'] . $request_uri );
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
         curl_setopt( $ch, CURLOPT_TIMEOUT, 600 );
         curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
