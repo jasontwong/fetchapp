@@ -14,6 +14,7 @@ Require the library for use and instantiate:
 Create an Order
 ---------------
 This passes a SimpleXMLElement object as the last parameter so it knows to stop the URL building.
+
     $new_order = simplexml_load_file( 'order_create.xml' );
     $order_create_response = $fetch_app->orders( 'create', $new_order );
 
@@ -27,6 +28,7 @@ Modify an Order
 Send an email of an Order
 -------------------------
 This is how you can pass query params to an API call.
+
     $params = array(
         'expiration_date' => '2011-03-07T15:08:02+00:00',
         'download_limit' => '10',
@@ -41,6 +43,7 @@ Get information about an Order(s)
 Get information of Order Items in an Order
 ------------------------------------------
 This shows how you can add or change paramters easily to get different results
+
     $order_items = $fetch_app->orders( 'M0001', 'order_items' );
     $single_order_item = $fetch_app->orders( 'M0001', 'order_items', '1056064' );
     $downloads_of_single_order_item = $fetch_app->orders( 'M0001', 'order_items', '1056064', 'downloads' );
